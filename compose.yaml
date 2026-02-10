@@ -3,11 +3,27 @@
 services:
 
   db:
-    image: mysql
+    image: mysql:latest
+    volumes:
+      - dbdata:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 8000:8000
 
   api:
+    build: ./backend
+    working_dir: /var/www
+    restart: always
+    depends_on:
+      - "db"
 
+  web:
+    build: ./frontend
+    working_dir: /var/www
+    ports:
+      - 80:80
   
+volumes:
+  dbdata:
