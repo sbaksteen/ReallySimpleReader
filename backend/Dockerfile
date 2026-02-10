@@ -4,5 +4,5 @@ WORKDIR /var/www
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 9000
 CMD ["php-fpm"]

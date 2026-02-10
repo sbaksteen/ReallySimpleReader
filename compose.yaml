@@ -9,8 +9,6 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
-    ports:
-      - 8000:8000
 
   api:
     build: ./backend
@@ -18,6 +16,8 @@ services:
     restart: always
     depends_on:
       - "db"
+    ports:
+      - 8000:8000
 
   web:
     build: ./frontend
