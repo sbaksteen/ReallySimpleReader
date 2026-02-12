@@ -1,10 +1,16 @@
-FROM nginx:latest
+FROM node:latest
 
 WORKDIR /var/www
 
+COPY package.json .
+
+RUN npm install
+RUN npm i -g serve
+
 COPY . .
 
-COPY vhost.conf /etc/nginx/conf.d/default.conf
+RUN npm run build
 
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-        && ln -sf /dev/stderr /var/log/nginx/error.log
+EXPOSE 3000
+
+CMD [ "serve", "-s", "dist" ]
